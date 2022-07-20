@@ -1,6 +1,5 @@
 package com.jimmy.dao
 
-import com.jimmy.models.Performances
 import kotlinx.coroutines.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.*
@@ -10,10 +9,12 @@ object DatabaseFactory {
     fun init() {
         val driverClassName = "org.mariadb.jdbc.Driver"
         val jdbcURL = "jdbc:mariadb://localhost:3306/8degrees"
-        val database = Database.connect(jdbcURL, driverClassName)
-        transaction(database) {
-            SchemaUtils.create(Performances)
-        }
+        val user = "root"
+        var password = "dev@308"
+        Database.connect(jdbcURL, driverClassName, user, password)
+//        transaction(database) {
+//            SchemaUtils.create(Performances)
+//        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.jimmy.routes
 
+import com.jimmy.dao.PerformanceDAOFacadeImpl
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -7,14 +8,14 @@ import io.ktor.server.routing.*
 fun Route.performanceRouting() {
     route("/performance") {
         get {
-            call.respondText { "test GET request"}
+            return@get call.respond(PerformanceDAOFacadeImpl().allPerformances())
         }
 
         get("{id}") {}
 
     }
 
-    post {  }
+    post { }
 
     delete { "{id}" }
 }
