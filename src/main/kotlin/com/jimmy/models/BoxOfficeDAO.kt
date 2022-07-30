@@ -1,13 +1,23 @@
 package com.jimmy.models
 
+import io.ktor.http.*
+import kotlinx.serialization.Contextual
 import org.jetbrains.exposed.sql.Table
 
 @kotlinx.serialization.Serializable
-data class BoxOfficeDAO(val performance_id: String, val title: String, val ranking: Int)
+data class BoxOfficeDAO(val performanceId: String, val ranking: Int, val title: String, val genre: String, val poster: String)
+
+@kotlinx.serialization.Serializable
+data class BoxOfficeResponse(
+    val code: Int,
+    val result: List<BoxOfficeDAO>
+)
 
 object BoxOffices: Table() {
-    val performance_id = varchar("performance_id", 20)
+    val performanceId = varchar("performanceId", 20)
     val title = varchar("title", 50)
     var ranking = integer("ranking")
-    override val primaryKey = PrimaryKey(performance_id)
+    var genre = varchar("genre", 10)
+    var poster = varchar("poster", 255)
+    override val primaryKey = PrimaryKey(performanceId)
 }

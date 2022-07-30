@@ -7,9 +7,11 @@ import org.jetbrains.exposed.sql.selectAll
 
 class BoxOfficeDAOFacadeImpl: BoxOfficeDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = BoxOfficeDAO(
-        performance_id = row[BoxOffices.performance_id],
+        performanceId = row[BoxOffices.performanceId],
+        ranking = row[BoxOffices.ranking],
         title = row[BoxOffices.title],
-        ranking = row[BoxOffices.ranking]
+        genre = row[BoxOffices.genre],
+        poster = row[BoxOffices.poster],
     )
 
     override suspend fun allBoxOffices(): List<BoxOfficeDAO> = dbQuery {
