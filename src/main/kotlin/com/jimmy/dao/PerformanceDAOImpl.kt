@@ -4,7 +4,7 @@ import com.jimmy.models.Performances
 import com.jimmy.models.PerformanceDAO
 import org.jetbrains.exposed.sql.*
 
-class PerformanceDAOFacadeImpl : PerformanceDAOFacade {
+class PerformanceDAOImpl : PerformanceDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = PerformanceDAO(
         performanceId = row[Performances.performanceId],
         title = row[Performances.title],

@@ -1,6 +1,6 @@
 package com.jimmy.routes
 
-import com.jimmy.dao.BoxOfficeDAOFacadeImpl
+import com.jimmy.dao.BoxOfficeDAOImpl
 import com.jimmy.models.BoxOfficeResponse
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -11,7 +11,7 @@ fun Route.boxOfficeRouting() {
 
     route("/boxOffice") {
         get {
-            call.respond(BoxOfficeResponse(HttpStatusCode.OK.value, BoxOfficeDAOFacadeImpl().allBoxOffices()))
+            call.respond(BoxOfficeResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().allBoxOffices()))
         }
     }
 }

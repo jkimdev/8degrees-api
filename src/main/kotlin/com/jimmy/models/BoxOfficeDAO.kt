@@ -5,7 +5,13 @@ import kotlinx.serialization.Contextual
 import org.jetbrains.exposed.sql.Table
 
 @kotlinx.serialization.Serializable
-data class BoxOfficeDAO(val performanceId: String, val ranking: Int, val title: String, val genre: String, val poster: String)
+data class BoxOfficeDAO(
+    val performanceId: String,
+    val ranking: Int,
+    val title: String,
+    val genre: String,
+    val poster: String,
+)
 
 @kotlinx.serialization.Serializable
 data class BoxOfficeResponse(
