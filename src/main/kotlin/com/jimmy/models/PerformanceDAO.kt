@@ -3,7 +3,7 @@ package com.jimmy.models
 import org.jetbrains.exposed.sql.Table
 
 @kotlinx.serialization.Serializable
-data class PerformanceDAO(val performanceId: String, val title: String)
+data class PerformanceDAO(val performanceId: String, val title: String, val actor: List<ActorDAO>)
 
 object Performances : Table() {
     val performanceId = varchar("performanceId", 20)

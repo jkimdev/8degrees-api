@@ -8,7 +8,7 @@ import io.ktor.server.routing.*
 fun Route.performanceRouting() {
     route("/performance") {
         get {
-            return@get call.respond(PerformanceDAOImpl().allPerformances())
+            call.respond(PerformanceDAOImpl().allPerformances())
         }
 
         get("{id}") {}
