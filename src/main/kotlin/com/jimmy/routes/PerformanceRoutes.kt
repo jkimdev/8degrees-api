@@ -10,9 +10,13 @@ fun Route.performanceRouting() {
         get {
             call.respond(PerformanceDAOImpl().allPerformances())
         }
+    }
 
-        get("{id}") {}
-
+    route("/performance/{id}") {
+        get {
+            val id = call.parameters["id"]
+            call.respond(PerformanceDAOImpl().findPerformanceById(id.toString()))
+        }
     }
 
     post { }
