@@ -14,7 +14,7 @@ class BoxOfficeDAOImpl: BoxOfficeDAOFacade {
         poster = row[BoxOffices.poster],
     )
 
-    override suspend fun allBoxOffices(): List<BoxOfficeDAO> = dbQuery {
-        BoxOffices.selectAll().limit(5).orderBy(BoxOffices.ranking).map(::resultRowToBoxOffice)
+    override suspend fun top10BoxOffices(): List<BoxOfficeDAO> = dbQuery {
+        BoxOffices.selectAll().limit(10).orderBy(BoxOffices.ranking).map(::resultRowToBoxOffice)
     }
 }

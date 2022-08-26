@@ -9,9 +9,9 @@ import io.ktor.server.routing.*
 
 fun Route.boxOfficeRouting() {
 
-    route("/boxOffice") {
+    route("/top10BoxOffice") {
         get {
-            call.respond(BoxOfficeResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().allBoxOffices()))
+            call.respond(BoxOfficeResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().top10BoxOffices()))
         }
     }
 }
