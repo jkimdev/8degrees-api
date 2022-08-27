@@ -8,9 +8,6 @@ import org.jetbrains.exposed.sql.Table
 @kotlinx.serialization.Serializable
 data class PerformanceDAO(val performanceId: String, val title: String, val actor: List<ActorDAO>)
 
-@kotlinx.serialization.Serializable
-data class SinglePerformanceDAO(val performanceId: String, val title: String, val poster: String)
-
 object Performances : Table() {
     val performanceId = varchar("performanceId", 20)
     val title = varchar("title", 50)

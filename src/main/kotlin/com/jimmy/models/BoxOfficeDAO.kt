@@ -14,10 +14,8 @@ data class BoxOfficeDAO(
 )
 
 @kotlinx.serialization.Serializable
-data class BoxOfficeResponse(
-    val code: Int,
-    val result: List<BoxOfficeDAO>
-)
+data class SingleBoxOfficeDAO(val performanceId: String, val title: String, val poster: String)
+
 
 object BoxOffices: Table() {
     val performanceId = varchar("performanceId", 20)
