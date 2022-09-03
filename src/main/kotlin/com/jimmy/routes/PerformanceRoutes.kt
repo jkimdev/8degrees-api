@@ -16,9 +16,9 @@ fun Route.performanceRouting() {
         }
     }
 
-    route("/performance/genre/{genre}") {
+    route("/performance") {
         get {
-            val genre = call.parameters["genre"]
+            val genre = call.request.queryParameters["genre"]
             call.respond(
                 ResultResponse(
                     HttpStatusCode.OK.value,
