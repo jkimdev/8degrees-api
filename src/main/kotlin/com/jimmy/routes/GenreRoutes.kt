@@ -8,7 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.genreRouting() {
-    route("/categories") {
+    route("/genres") {
         get { call.respond(ResultResponse(HttpStatusCode.OK.value, GenreDAOImpl().allGenres())) }
     }
 }
