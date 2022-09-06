@@ -2,7 +2,6 @@ package com.jimmy.dao
 
 import com.jimmy.models.*
 import org.jetbrains.exposed.sql.*
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
 class PerformanceDAOImpl : PerformanceDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = PerformanceDAO(
@@ -15,14 +14,25 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
     )
 
     override suspend fun allPerformances(): List<PerformanceDAO> = dbQuery {
-        (Actors innerJoin Performances).slice(Performances.performanceId, Performances.title, Actors.name, Performances.genre)
+        (Actors innerJoin Performances).slice(
+            Performances.performanceId,
+            Performances.title,
+            Actors.name,
+            Performances.genre
+        )
             .select { Actors.performanceId eq Performances.performanceId }.groupBy(Performances.performanceId)
             .map(::resultRowToPerformance)
     }
 
-    override suspend fun findPerformanceByGenre(genre: String): List<PerformanceDAO> = dbQuery {
-        (Actors innerJoin Performances).slice(Performances.performanceId, Performances.title, Actors.name, Performances.genre)
-            .selectAll().limit(10)
-            .map(::resultRowToPerformance)
-    }
+    override suspend fun findPerformanceByGenre(genre: String, startIdx: String, endIdx: String): List<PerformanceDAO> =
+        dbQuery {
+            (Actors innerJoin Performances).slice(
+                Performances.performanceId,
+                Performances.title,
+                Actors.name,
+                Performances.genre
+            )
+                .select { Performances.genre eq genre }.limit(endIdx.toInt(), offset = startIdx.toLong())
+                .map(::resultRowToPerformance)
+        }
 }
