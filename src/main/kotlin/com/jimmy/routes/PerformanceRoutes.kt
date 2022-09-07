@@ -8,13 +8,14 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.performanceRouting() {
-//    route("/performance") {
-//        get {
-//            call.respond(ResultResponse(HttpStatusCode.OK.value, PerformanceDAOImpl().allPerformances()))
-//        }
-//    }
+    route("/performance/{pid}") {
+        get {
+            val pid = call.parameters["pid"]
+            call.respond(ResultResponse(HttpStatusCode.OK.value, PerformanceDAOImpl().findSinglePerformance(pid.toString())))
+        }
+    }
 
-    route("/performance") {
+    route("/performance/genre") {
         get {
             val genre = call.request.queryParameters["genre"]
             val startIdx = call.request.queryParameters["startIdx"]
