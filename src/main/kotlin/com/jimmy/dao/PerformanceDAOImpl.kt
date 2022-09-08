@@ -10,6 +10,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         actor = (Actors innerJoin Performances).slice(Actors.name)
             .select { Performances.performanceId eq row[Performances.performanceId] }
             .map { ActorDAO(name = it[Actors.name]) },
+        poster = row[Performances.poster],
         genre = row[Performances.genre]
     )
 
@@ -17,7 +18,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         (Actors innerJoin Performances).slice(
             Performances.performanceId,
             Performances.title,
-            Actors.name,
+            Performances.poster,
             Performances.genre
         )
             .select { Performances.performanceId eq pid }.groupBy(Performances.performanceId)
@@ -26,10 +27,10 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
 
     override suspend fun findPerformanceByGenre(genre: String, startIdx: String, endIdx: String): List<PerformanceDAO> =
         dbQuery {
-            (Actors innerJoin Performances).slice(
+            Performances.slice(
                 Performances.performanceId,
                 Performances.title,
-                Actors.name,
+                Performances.poster,
                 Performances.genre
             )
                 .select { Performances.genre eq genre }.limit(endIdx.toInt(), offset = startIdx.toLong())
