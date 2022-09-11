@@ -11,7 +11,10 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
             .select { Performances.performanceId eq row[Performances.performanceId] }
             .map { ActorDAO(name = it[Actors.name]) },
         poster = row[Performances.poster],
-        genre = row[Performances.genre]
+        genre = row[Performances.genre],
+        startDate = row[Performances.startDate],
+        endDate = row[Performances.endDate],
+        state = row[Performances.state]
     )
 
     override suspend fun findSinglePerformance(pid: String): List<PerformanceDAO> = dbQuery {
@@ -31,9 +34,25 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
                 Performances.performanceId,
                 Performances.title,
                 Performances.poster,
-                Performances.genre
+                Performances.genre,
+                Performances.startDate,
+                Performances.endDate,
+                Performances.state
             )
                 .select { Performances.genre eq genre }.limit(endIdx.toInt(), offset = startIdx.toLong())
+                .map(::resultRowToPerformance)
+        }
+
+    override suspend fun findPerformanceByDate(
+        startDate: String,
+        startIdx: String,
+        endIdx: String
+    ): List<PerformanceDAO> =
+        dbQuery {
+            Performances
+                .select { (Performances.startDate greaterEq startDate) and (Performances.state eq "ONGOING") }
+                .orderBy(Performances.startDate)
+                .limit(endIdx.toInt(), offset = startIdx.toLong())
                 .map(::resultRowToPerformance)
         }
 }

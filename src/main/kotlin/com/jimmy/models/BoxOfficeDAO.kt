@@ -19,7 +19,7 @@ data class SingleBoxOfficeDAO(val performanceId: String, val title: String, val 
 
 object BoxOffices: Table() {
     val performanceId = varchar("performanceId", 20)
-    val title = varchar("title", 50)
+    val title = varchar("title", 100)
     var ranking = integer("ranking")
     var genre = varchar("genre", 10)
     var poster = varchar("poster", 255)

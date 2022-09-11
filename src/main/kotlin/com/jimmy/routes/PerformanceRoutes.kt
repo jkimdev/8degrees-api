@@ -33,6 +33,24 @@ fun Route.performanceRouting() {
         }
     }
 
+    route("/performance/upComing") {
+        get {
+            val date = call.request.queryParameters["date"]
+            val startIdx = call.request.queryParameters["startIdx"]
+            val endIdx = call.request.queryParameters["endIdx"]
+            call.respond(
+                ResultResponse(
+                    HttpStatusCode.OK.value,
+                    PerformanceDAOImpl().findPerformanceByDate(
+                        date.toString(),
+                        startIdx.toString(),
+                        endIdx.toString()
+                    )
+                )
+            )
+        }
+    }
+
     post { }
 
     delete { "{id}" }
