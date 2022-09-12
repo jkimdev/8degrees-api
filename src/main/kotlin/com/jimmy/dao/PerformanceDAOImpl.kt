@@ -18,12 +18,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
     )
 
     override suspend fun findSinglePerformance(pid: String): List<PerformanceDAO> = dbQuery {
-        (Actors innerJoin Performances).slice(
-            Performances.performanceId,
-            Performances.title,
-            Performances.poster,
-            Performances.genre
-        )
+        (Actors innerJoin Performances)
             .select { Performances.performanceId eq pid }.groupBy(Performances.performanceId)
             .map(::resultRowToPerformance)
     }

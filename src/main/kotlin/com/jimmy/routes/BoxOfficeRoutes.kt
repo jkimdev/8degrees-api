@@ -14,10 +14,10 @@ fun Route.boxOfficeRouting() {
             call.respond(ResultResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().top10BoxOffices()))
         }
     }
-    route("/boxOffice/{id}") {
-        get {
-            val id = call.parameters["id"]
-            call.respond(ResultResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().findBoxOfficeById(id.toString())))
-        }
-    }
+//    route("/boxOffice/{id}") {
+//        get {
+//            val id = call.parameters["id"]
+//            call.respond(ResultResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().findBoxOfficeById(id.toString())))
+//        }
+//    }
 }

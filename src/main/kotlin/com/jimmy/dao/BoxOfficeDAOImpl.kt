@@ -24,9 +24,9 @@ class BoxOfficeDAOImpl: BoxOfficeDAOFacade {
         BoxOffices.selectAll().limit(10).orderBy(BoxOffices.ranking).map(::resultRowToBoxOffice)
     }
 
-    override suspend fun findBoxOfficeById(id: String): List<SingleBoxOfficeDAO> = dbQuery {
-        BoxOffices.slice(BoxOffices.performanceId, BoxOffices.title, BoxOffices.poster)
-            .select { BoxOffices.performanceId eq id }
-            .map(::resultRowToSingleBoxOffice)
-    }
+//    override suspend fun findBoxOfficeById(id: String): List<SingleBoxOfficeDAO> = dbQuery {
+//        BoxOffices.slice(BoxOffices.performanceId, BoxOffices.title, BoxOffices.poster)
+//            .select { BoxOffices.performanceId eq id }
+//            .map(::resultRowToSingleBoxOffice)
+//    }
 }
