@@ -15,6 +15,9 @@ data class PerformanceDAO(
     val startDate: String,
     val endDate: String,
     val state: String,
+    val runtime: String,
+    val rating: String,
+    val story: String,
 )
 
 object Performances : Table() {
@@ -25,6 +28,9 @@ object Performances : Table() {
     var startDate = varchar("start_date", 10)
     var endDate = varchar("end_date", 10)
     var state = varchar("state", 7)
+    var runtime = varchar("runtime", 10)
+    var rating = varchar("rating", 30)
+    var story = text("story")
 
     override val primaryKey = PrimaryKey(performanceId)
 }

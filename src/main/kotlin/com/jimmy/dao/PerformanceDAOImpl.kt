@@ -7,14 +7,17 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = PerformanceDAO(
         performanceId = row[Performances.performanceId],
         title = row[Performances.title],
+        poster = row[Performances.poster],
+        story = row[Performances.story],
         actor = (Actors innerJoin Performances).slice(Actors.name)
             .select { Performances.performanceId eq row[Performances.performanceId] }
             .map { ActorDAO(name = it[Actors.name]) },
-        poster = row[Performances.poster],
         genre = row[Performances.genre],
+        rating = row[Performances.rating],
         startDate = row[Performances.startDate],
         endDate = row[Performances.endDate],
-        state = row[Performances.state]
+        state = row[Performances.state],
+        runtime = row[Performances.runtime],
     )
 
     override suspend fun findSinglePerformance(pid: String): List<PerformanceDAO> = dbQuery {
