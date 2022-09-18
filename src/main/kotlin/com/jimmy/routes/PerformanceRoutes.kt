@@ -41,7 +41,7 @@ fun Route.performanceRouting() {
             call.respond(
                 ResultResponse(
                     HttpStatusCode.OK.value,
-                    PerformanceDAOImpl().findPerformanceByDate(
+                    PerformanceDAOImpl().findUpComingPerformance(
                         date.toString(),
                         startIdx.toString(),
                         endIdx.toString()

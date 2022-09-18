@@ -28,20 +28,12 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
 
     override suspend fun findPerformanceByGenre(genre: String, startIdx: String, endIdx: String): List<PerformanceDAO> =
         dbQuery {
-            Performances.slice(
-                Performances.performanceId,
-                Performances.title,
-                Performances.poster,
-                Performances.genre,
-                Performances.startDate,
-                Performances.endDate,
-                Performances.state
-            )
+            Performances
                 .select { Performances.genre eq genre }.limit(endIdx.toInt(), offset = startIdx.toLong())
                 .map(::resultRowToPerformance)
         }
 
-    override suspend fun findPerformanceByDate(
+    override suspend fun findUpComingPerformance(
         startDate: String,
         startIdx: String,
         endIdx: String
