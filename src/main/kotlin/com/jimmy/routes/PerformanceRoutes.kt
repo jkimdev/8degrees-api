@@ -11,7 +11,12 @@ fun Route.performanceRouting() {
     route("/performance/{pid}") {
         get {
             val pid = call.parameters["pid"]
-            call.respond(ResultResponse(HttpStatusCode.OK.value, PerformanceDAOImpl().findSinglePerformance(pid.toString())))
+            call.respond(
+                ResultResponse(
+                    HttpStatusCode.OK.value,
+                    PerformanceDAOImpl().findSinglePerformance(pid.toString())
+                )
+            )
         }
     }
 
@@ -46,6 +51,23 @@ fun Route.performanceRouting() {
                         startIdx.toString(),
                         endIdx.toString()
                     )
+                )
+            )
+        }
+    }
+
+    route("performance/near") {
+        get {
+            val date = call.request.queryParameters["date"]
+            val latitude = call.request.queryParameters["latitude"]
+            val longitude = call.request.queryParameters["longitude"]
+            call.respond(
+                ResultResponse(
+                    HttpStatusCode.OK.value,
+                    PerformanceDAOImpl().findNearPerformance(
+                        date.toString(),
+                        latitude.toString(),
+                        longitude.toString())
                 )
             )
         }
