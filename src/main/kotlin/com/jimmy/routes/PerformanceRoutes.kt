@@ -56,23 +56,6 @@ fun Route.performanceRouting() {
         }
     }
 
-    route("performance/near") {
-        get {
-            val date = call.request.queryParameters["date"]
-            val latitude = call.request.queryParameters["latitude"]
-            val longitude = call.request.queryParameters["longitude"]
-            call.respond(
-                ResultResponse(
-                    HttpStatusCode.OK.value,
-                    PerformanceDAOImpl().findNearPerformance(
-                        date.toString(),
-                        latitude.toString(),
-                        longitude.toString())
-                )
-            )
-        }
-    }
-
     post { }
 
     delete { "{id}" }

@@ -9,8 +9,8 @@ data class FacilityDAO(
     val telNo: String,
     val url: String,
     val address: String,
-    val latitude: String,
-    val longitude: String
+    val latitude: Double,
+    val longitude: Double
 )
 
 object Facilities: Table() {
@@ -19,8 +19,8 @@ object Facilities: Table() {
     var telNo = varchar("telNo", 50)
     var url = varchar("url", 255)
     var address = varchar("address", 100)
-    var latitude = varchar("latitude", 50)
-    var longitude = varchar("longitude", 50)
+    var latitude = double("latitude")
+    var longitude = double("longitude")
     override val primaryKey = PrimaryKey(facilityId)
 }
 

@@ -1,5 +1,6 @@
 package com.jimmy.plugins
 
+import com.jimmy.routes.facilityRouting
 import com.jimmy.routes.boxOfficeRouting
 import com.jimmy.routes.performanceRouting
 import com.jimmy.routes.genreRouting
@@ -12,6 +13,7 @@ fun Application.configureRouting() {
     routing {
         performanceRouting()
         boxOfficeRouting()
+        facilityRouting()
         genreRouting()
     }
 }

@@ -2,6 +2,7 @@ package com.jimmy.dao
 
 import com.jimmy.models.*
 import org.jetbrains.exposed.sql.ResultRow
+import org.jetbrains.exposed.sql.selectAll
 
 class FacilityDAOImpl: FacilityDAOFacade {
     private fun resultRowToFacility(row: ResultRow) = FacilityDAO(
@@ -14,7 +15,7 @@ class FacilityDAOImpl: FacilityDAOFacade {
         longitude = row[Facilities.longitude],
     )
 
-    override suspend fun findNearPerformance(startDate: String, latitude: String, longitude: String) {
-        TODO("Not yet implemented")
+    override suspend fun findNearPerformance(startDate: String, latitude: Double, longitude: Double): List<FacilityDAO> = dbQuery {
+        Facilities.selectAll().map(::resultRowToFacility)
     }
 }
