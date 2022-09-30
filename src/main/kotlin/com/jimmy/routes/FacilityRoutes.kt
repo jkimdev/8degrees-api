@@ -8,7 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.facilityRouting() {
-    route("performance/near") {
+    route("facility/near") {
         get {
             val date = call.request.queryParameters["date"]
             val latitude = call.request.queryParameters["latitude"]
@@ -17,7 +17,7 @@ fun Route.facilityRouting() {
                     call.respond(
                         ResultResponse(
                             HttpStatusCode.OK.value,
-                            FacilityDAOImpl().findNearPerformance(date.toString(), latitude.toDouble(), longitude.toDouble())
+                            FacilityDAOImpl().findNearFacility(date.toString(), latitude.toDouble(), longitude.toDouble())
                         ))
             }
         }

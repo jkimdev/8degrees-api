@@ -6,6 +6,7 @@ import org.jetbrains.exposed.sql.*
 class PerformanceDAOImpl : PerformanceDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = PerformanceDAO(
         performanceId = row[Performances.performanceId],
+        facilityId = row[Performances.facilityId],
         title = row[Performances.title],
         poster = row[Performances.poster],
         story = row[Performances.story],
