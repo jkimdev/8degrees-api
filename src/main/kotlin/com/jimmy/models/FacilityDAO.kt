@@ -11,8 +11,7 @@ data class FacilityDAO(
     val address: String,
     val latitude: Double,
     val longitude: Double,
-//    val performance: List<SimplePerformanceDAO>,
-    val radius: Double
+    val distance: Double
 )
 
 object Facilities: Table() {
