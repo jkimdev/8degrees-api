@@ -10,14 +10,13 @@ import io.ktor.server.routing.*
 fun Route.facilityRouting() {
     route("facility/near") {
         get {
-            val date = call.request.queryParameters["date"]
             val latitude = call.request.queryParameters["latitude"]
             val longitude = call.request.queryParameters["longitude"]
             if (longitude != null && latitude != null) {
                     call.respond(
                         ResultResponse(
                             HttpStatusCode.OK.value,
-                            FacilityDAOImpl().findNearFacility(date.toString(), latitude.toDouble(), longitude.toDouble())
+                            FacilityDAOImpl().findNearFacility(latitude.toDouble(), longitude.toDouble())
                         ))
             }
         }

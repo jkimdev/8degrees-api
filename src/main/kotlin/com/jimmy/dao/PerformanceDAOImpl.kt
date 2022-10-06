@@ -46,4 +46,14 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
                 .limit(endIdx.toInt(), offset = startIdx.toLong())
                 .map(::resultRowToPerformance)
         }
+
+    override suspend fun findPerformanceByFacility(
+        facilityId: String,
+        startDate: String,
+        startIdx: String,
+        endIdx: String
+    ): List<PerformanceDAO> = dbQuery {
+        Performances.select { (Performances.facilityId eq facilityId) and (Performances.state eq "ONGOING") }
+            .map(::resultRowToPerformance)
+    }
 }

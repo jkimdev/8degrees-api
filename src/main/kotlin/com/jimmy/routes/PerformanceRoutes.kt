@@ -56,6 +56,26 @@ fun Route.performanceRouting() {
         }
     }
 
+    route("/performance/facility") {
+        get {
+            val facilityId = call.request.queryParameters["facilityId"]
+            val date = call.request.queryParameters["date"]
+            val startIdx = call.request.queryParameters["startIdx"]
+            val endIdx = call.request.queryParameters["endIdx"]
+            call.respond(
+                ResultResponse(
+                    HttpStatusCode.OK.value,
+                    PerformanceDAOImpl().findPerformanceByFacility(
+                        facilityId.toString(),
+                        date.toString(),
+                        startIdx.toString(),
+                        endIdx.toString()
+                    )
+                )
+            )
+        }
+    }
+
     post { }
 
     delete { "{id}" }

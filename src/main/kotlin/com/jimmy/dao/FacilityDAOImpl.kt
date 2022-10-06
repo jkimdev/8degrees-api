@@ -19,7 +19,7 @@ class FacilityDAOImpl : FacilityDAOFacade {
         distance = 0.0,
     )
 
-    override suspend fun findNearFacility(startDate: String, latitude: Double, longitude: Double): List<FacilityDAO> =
+    override suspend fun findNearFacility(latitude: Double, longitude: Double): List<FacilityDAO> =
         dbQuery {
 
             var query = Facilities.innerJoin(Performances, { Performances.facilityId }, { Facilities.facilityId })
