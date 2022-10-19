@@ -2,6 +2,7 @@ package com.jimmy.dao
 
 import com.jimmy.models.*
 import org.jetbrains.exposed.sql.*
+import java.time.LocalDate
 
 class PerformanceDAOImpl : PerformanceDAOFacade {
     private fun resultRowToPerformance(row: ResultRow) = PerformanceDAO(
@@ -35,13 +36,14 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         }
 
     override suspend fun findUpComingPerformance(
-        startDate: String,
         startIdx: String,
         endIdx: String
     ): List<PerformanceDAO> =
         dbQuery {
             Performances
-                .select { (Performances.startDate greaterEq startDate) and (Performances.state eq "ONGOING") }
+                .select {
+                    (Performances.startDate greaterEq LocalDate.now().toString()) and (Performances.state eq "ONGOING")
+                }
                 .orderBy(Performances.startDate)
                 .limit(endIdx.toInt(), offset = startIdx.toLong())
                 .map(::resultRowToPerformance)
@@ -49,11 +51,26 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
 
     override suspend fun findPerformanceByFacility(
         facilityId: String,
-        startDate: String,
         startIdx: String,
         endIdx: String
     ): List<PerformanceDAO> = dbQuery {
-        Performances.select { (Performances.facilityId eq facilityId) and (Performances.state eq "ONGOING") }
-            .map(::resultRowToPerformance)
+
+        val count = Performances.select {
+            (Performances.startDate eq LocalDate.now().toString()) and (Performances.facilityId eq facilityId)
+        }.count()
+
+        if (count > 1) {
+            Performances.select {
+                (Performances.startDate eq LocalDate.now().toString()) and (Performances.facilityId eq facilityId)
+            }
+                .limit(endIdx.toInt(), offset = startIdx.toLong())
+                .map(::resultRowToPerformance)
+        } else {
+            Performances.select {
+                (Performances.startDate eq LocalDate.now().toString()) and (Performances.facilityId eq facilityId)
+            }
+                .limit(endIdx.toInt())
+                .map(::resultRowToPerformance)
+        }
     }
 }

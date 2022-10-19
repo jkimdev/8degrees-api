@@ -3,6 +3,7 @@ package com.jimmy.dao
 import com.jimmy.models.*
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.TransactionManager
+import java.time.LocalDate
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
@@ -31,25 +32,28 @@ class FacilityDAOImpl : FacilityDAOFacade {
                     Facilities.address,
                     Facilities.latitude,
                     Facilities.longitude,
-                    Performances.performanceId
                 )
-                .selectAll()
+                .select {
+                    (Performances.startDate eq LocalDate.now().toString()) and (Performances.state eq "ONGOING")
+                }
                 .groupBy(Facilities.facilityId)
-                .map { row -> FacilityDAO(
-                    facilityId = row[Facilities.facilityId],
-                    place = row[Facilities.place],
-                    telNo = row[Facilities.telNo],
-                    url = row[Facilities.url],
-                    address = row[Facilities.address],
-                    latitude = row[Facilities.latitude],
-                    longitude = row[Facilities.longitude],
-                    distance = (6371 * acos(
-                        cos(Math.toRadians(latitude)) * cos(Math.toRadians(row[Facilities.latitude])) * cos(
-                            Math.toRadians(row[Facilities.longitude]) - Math.toRadians(longitude)
-                        ) + sin(Math.toRadians(latitude)) * sin(Math.toRadians(row[Facilities.latitude]))
-                    )),
-                )}
-            query.stream().toList().filter { it -> it.distance < 5 }
+                .map { row ->
+                    FacilityDAO(
+                        facilityId = row[Facilities.facilityId],
+                        place = row[Facilities.place],
+                        telNo = row[Facilities.telNo],
+                        url = row[Facilities.url],
+                        address = row[Facilities.address],
+                        latitude = row[Facilities.latitude],
+                        longitude = row[Facilities.longitude],
+                        distance = (6371 * acos(
+                            cos(Math.toRadians(latitude)) * cos(Math.toRadians(row[Facilities.latitude])) * cos(
+                                Math.toRadians(row[Facilities.longitude]) - Math.toRadians(longitude)
+                            ) + sin(Math.toRadians(latitude)) * sin(Math.toRadians(row[Facilities.latitude]))
+                        )),
+                    )
+                }
+            query.stream().toList().filter { it.distance < 500 }
         }
 }
 
