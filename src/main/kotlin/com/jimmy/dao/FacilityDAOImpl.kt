@@ -34,7 +34,7 @@ class FacilityDAOImpl : FacilityDAOFacade {
                     Facilities.longitude,
                 )
                 .select {
-                    (Performances.startDate eq LocalDate.now().toString()) and (Performances.state eq "ONGOING")
+                    (Performances.startDate eq LocalDate.now().toString())
                 }
                 .groupBy(Facilities.facilityId)
                 .map { row ->

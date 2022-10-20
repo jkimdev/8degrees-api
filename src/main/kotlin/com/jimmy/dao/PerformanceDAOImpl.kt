@@ -42,7 +42,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         dbQuery {
             Performances
                 .select {
-                    (Performances.startDate greaterEq LocalDate.now().toString()) and (Performances.state eq "ONGOING")
+                    (Performances.startDate greaterEq LocalDate.now().toString())
                 }
                 .orderBy(Performances.startDate)
                 .limit(endIdx.toInt(), offset = startIdx.toLong())
