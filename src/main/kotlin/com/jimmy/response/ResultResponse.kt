@@ -6,4 +6,10 @@ import kotlinx.serialization.Serializable
 data class ResultResponse<T>(
     val code: Int,
     val result: List<T>
-)
+    )
+
+@Serializable
+data class HomeResultResponse<T> (
+    var code: Int,
+    var result: T
+    )

@@ -1,9 +1,6 @@
 package com.jimmy.plugins
 
-import com.jimmy.routes.facilityRouting
-import com.jimmy.routes.boxOfficeRouting
-import com.jimmy.routes.performanceRouting
-import com.jimmy.routes.genreRouting
+import com.jimmy.routes.*
 import io.ktor.server.routing.*
 import io.ktor.server.application.*
 
@@ -11,9 +8,10 @@ import io.ktor.server.application.*
 fun Application.configureRouting() {
 
     routing {
+        homeRouting()
+        genreRouting()
         performanceRouting()
         boxOfficeRouting()
         facilityRouting()
-        genreRouting()
     }
 }

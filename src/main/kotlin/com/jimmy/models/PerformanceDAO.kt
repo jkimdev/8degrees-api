@@ -27,9 +27,9 @@ data class SimplePerformanceDAO(
     val title: String,
     val poster: String,
     val genre: String,
-    val runtime: String,
+    val startDate: String,
+    val endDate: String,
     val rating: String,
-    val story: String,
 )
 
 object Performances : Table() {
