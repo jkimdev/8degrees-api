@@ -6,9 +6,8 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-
 fun Route.performanceRouting() {
-    route("/performance/{pid}") {
+    route("/api/performance/{pid}") {
         get {
             val pid = call.parameters["pid"]
             call.respond(
@@ -20,55 +19,61 @@ fun Route.performanceRouting() {
         }
     }
 
-    route("/performance/genre") {
+    route("/api/performance/genre") {
         get {
             val genre = call.request.queryParameters["genre"]
-            val startIdx = call.request.queryParameters["startIdx"]
-            val endIdx = call.request.queryParameters["endIdx"]
-            call.respond(
-                ResultResponse(
-                    HttpStatusCode.OK.value,
-                    PerformanceDAOImpl().findPerformanceByGenre(
-                        genre.toString(),
-                        startIdx.toString(),
-                        endIdx.toString()
+            val offset = call.request.queryParameters["offset"]?.toInt()
+            val limit = call.request.queryParameters["limit"]?.toInt()
+            if (offset != null && limit != null) {
+                call.respond(
+                    ResultResponse(
+                        HttpStatusCode.OK.value,
+                        PerformanceDAOImpl().findPerformanceByGenre(
+                            genre.toString(),
+                            offset,
+                            limit
+                        )
                     )
                 )
-            )
+            }
         }
     }
 
-    route("/performance/upComing") {
+    route("/api/performance/upComing") {
         get {
-            val startIdx = call.request.queryParameters["startIdx"]
-            val endIdx = call.request.queryParameters["endIdx"]
-            call.respond(
-                ResultResponse(
-                    HttpStatusCode.OK.value,
-                    PerformanceDAOImpl().findUpComingPerformance(
-                        startIdx.toString(),
-                        endIdx.toString()
+            val offset = call.request.queryParameters["offset"]?.toInt()
+            val limit = call.request.queryParameters["limit"]?.toInt()
+            if (offset != null && limit != null) {
+                call.respond(
+                    ResultResponse(
+                        HttpStatusCode.OK.value,
+                        PerformanceDAOImpl().findUpComingPerformance(
+                            offset,
+                            limit
+                        )
                     )
                 )
-            )
+            }
         }
     }
 
-    route("/performance/facility") {
+    route("/api/performance/facility") {
         get {
             val facilityId = call.request.queryParameters["facilityId"]
-            val startIdx = call.request.queryParameters["startIdx"]
-            val endIdx = call.request.queryParameters["endIdx"]
-            call.respond(
-                ResultResponse(
-                    HttpStatusCode.OK.value,
-                    PerformanceDAOImpl().findPerformanceByFacility(
-                        facilityId.toString(),
-                        startIdx.toString(),
-                        endIdx.toString()
+            val offset = call.request.queryParameters["offset"]?.toInt()
+            val limit = call.request.queryParameters["limit"]?.toInt()
+            if (offset != null && limit != null) {
+                call.respond(
+                    ResultResponse(
+                        HttpStatusCode.OK.value,
+                        PerformanceDAOImpl().findPerformanceByFacility(
+                            facilityId.toString(),
+                            offset,
+                            limit
+                        )
                     )
                 )
-            )
+            }
         }
     }
 

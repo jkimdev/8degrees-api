@@ -28,16 +28,16 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
             .map(::resultRowToPerformance)
     }
 
-    override suspend fun findPerformanceByGenre(genre: String, startIdx: String, endIdx: String): List<PerformanceDAO> =
+    override suspend fun findPerformanceByGenre(genre: String, offset: Int, limit: Int): List<PerformanceDAO> =
         dbQuery {
             Performances
-                .select { Performances.genre eq genre }.limit(endIdx.toInt(), offset = startIdx.toLong())
+                .select { Performances.genre eq genre }.limit(limit, offset = offset.toLong())
                 .map(::resultRowToPerformance)
         }
 
     override suspend fun findUpComingPerformance(
-        startIdx: String,
-        endIdx: String
+        offset: Int,
+        limit: Int
     ): List<PerformanceDAO> =
         dbQuery {
             Performances
@@ -45,14 +45,14 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
                     (Performances.startDate greaterEq LocalDate.now().toString())
                 }
                 .orderBy(Performances.startDate)
-                .limit(endIdx.toInt(), offset = startIdx.toLong())
+                .limit(10)
                 .map(::resultRowToPerformance)
         }
 
     override suspend fun findPerformanceByFacility(
         facilityId: String,
-        startIdx: String,
-        endIdx: String
+        offset: Int,
+        limit: Int
     ): List<PerformanceDAO> = dbQuery {
 
         val count = Performances.select {
@@ -63,13 +63,13 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
             Performances.select {
                 (Performances.startDate eq LocalDate.now().toString()) and (Performances.facilityId eq facilityId)
             }
-                .limit(endIdx.toInt(), offset = startIdx.toLong())
+                .limit(limit, offset = offset.toLong())
                 .map(::resultRowToPerformance)
         } else {
             Performances.select {
                 (Performances.startDate eq LocalDate.now().toString()) and (Performances.facilityId eq facilityId)
             }
-                .limit(endIdx.toInt())
+                .limit(limit)
                 .map(::resultRowToPerformance)
         }
     }
