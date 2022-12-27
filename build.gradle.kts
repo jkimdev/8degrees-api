@@ -6,19 +6,20 @@ plugins {
     application
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.serialization") version "1.7.10"
+    id("io.ktor.plugin") version "2.2.1"
 }
 
 group = "com.jimmy"
 version = "0.0.1"
 
-//application {
-//    mainClass.set("com.jimmy.ApplicationKt")
-//
+application {
+    mainClass.set("com.jimmy.ApplicationKt")
+
 //    val isDevelopment: Boolean = project.ext.has("development")
 //    applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 //
 //    mainClass.set("io.ktor.server.netty.EngineMain")
-//}
+}
 
 repositories {
     mavenCentral()

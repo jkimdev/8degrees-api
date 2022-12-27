@@ -10,9 +10,8 @@ import io.ktor.client.statement.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 import com.jimmy.plugins.*
-
 class ApplicationTest {
-    @Test
+//    @Test
     fun testRoot() = testApplication {
         application {
             configureRouting()
