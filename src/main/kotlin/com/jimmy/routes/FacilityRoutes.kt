@@ -8,7 +8,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.facilityRouting() {
-    route("facility/near") {
+    route("/api/facility/near") {
         get {
             val latitude = call.request.queryParameters["latitude"]
             val longitude = call.request.queryParameters["longitude"]

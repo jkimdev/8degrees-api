@@ -9,7 +9,7 @@ import io.ktor.server.routing.*
 
 fun Route.boxOfficeRouting() {
 
-    route("/top10BoxOffice") {
+    route("/api/top10BoxOffice") {
         get {
             call.respond(ResultResponse(HttpStatusCode.OK.value, BoxOfficeDAOImpl().top10BoxOffices()))
         }
