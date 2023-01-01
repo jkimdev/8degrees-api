@@ -10,6 +10,8 @@ import io.ktor.client.statement.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 import com.jimmy.plugins.*
+import org.junit.Assert.assertEquals
+
 class ApplicationTest {
 //    @Test
     fun testRoot() = testApplication {

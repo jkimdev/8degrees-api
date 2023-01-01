@@ -7,7 +7,7 @@ import org.jetbrains.exposed.sql.transactions.experimental.*
 object DatabaseFactory {
     fun init() {
         val driverClassName = "org.mariadb.jdbc.Driver"
-        val jdbcURL = "jdbc:mariadb://localhost:3306/8degrees"
+        val jdbcURL = "jdbc:mariadb://host.docker.internal:3306/8degrees"
         val user = "root"
         var password = "dev@308"
         Database.connect(jdbcURL, driverClassName, user, password)
