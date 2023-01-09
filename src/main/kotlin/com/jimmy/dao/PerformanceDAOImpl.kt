@@ -16,6 +16,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
             .map { ActorDAO(name = it[Actors.name]) },
         genre = row[Performances.genre],
         rating = row[Performances.rating],
+        place = row[Performances.place],
         startDate = row[Performances.startDate],
         endDate = row[Performances.endDate],
         state = row[Performances.state],

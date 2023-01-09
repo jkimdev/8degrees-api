@@ -13,6 +13,7 @@ data class PerformanceDAO(
     val actor: List<ActorDAO>,
     val poster: String,
     val genre: String,
+    var place: String,
     val startDate: String,
     val endDate: String,
     val state: String,
@@ -38,6 +39,7 @@ object Performances : Table() {
     val title = varchar("title", 100)
     var poster = varchar("poster", 255)
     var genre = varchar("genre", 4)
+    var place = varchar("place", 255)
     var startDate = varchar("start_date", 10)
     var endDate = varchar("end_date", 10)
     var state = varchar("state", 7)
