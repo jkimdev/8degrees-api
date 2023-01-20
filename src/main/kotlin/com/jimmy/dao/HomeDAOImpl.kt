@@ -14,7 +14,13 @@ class HomeDAOImpl : HomeDAOFacade {
                 ranking = it[Exhibitions.ranking],
                 title = it[Exhibitions.title],
                 genre = it[Exhibitions.genre],
-                poster = it[Exhibitions.poster]
+                poster = it[Exhibitions.poster],
+                story = it[Exhibitions.story],
+                area = it[Exhibitions.area],
+                place = it[Exhibitions.place],
+                startDate = it[Exhibitions.startDate],
+                endDate = it[Exhibitions.endDate],
+                link = it[Exhibitions.link]
             )
         },
         genres = Genres.selectAll().map {
@@ -67,6 +73,12 @@ class HomeDAOImpl : HomeDAOFacade {
         title = row[Exhibitions.title],
         genre = row[Exhibitions.genre],
         poster = row[Exhibitions.poster],
+        story = row[Exhibitions.story],
+        area = row[Exhibitions.area],
+        place = row[Exhibitions.place],
+        startDate = row[Exhibitions.startDate],
+        endDate = row[Exhibitions.endDate],
+        link = row[Exhibitions.link]
     )
 
     private fun resultRowToPerformance(row: ResultRow) = SimplePerformanceDAO(
