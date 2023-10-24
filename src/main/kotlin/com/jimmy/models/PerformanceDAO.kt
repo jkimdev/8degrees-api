@@ -10,7 +10,7 @@ data class PerformanceDAO(
     val performanceId: String,
     val facilityId: String,
     val title: String,
-    val actor: List<ActorDAO>,
+    val actor: List<String>,
     val poster: String,
     val genre: String,
     var place: String,
@@ -20,6 +20,7 @@ data class PerformanceDAO(
     val runtime: String,
     val rating: String,
     val story: String,
+    val strurls: List<String>
 )
 
 @kotlinx.serialization.Serializable

@@ -13,7 +13,7 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         story = row[Performances.story],
         actor = (Actors innerJoin Performances).slice(Actors.name)
             .select { Performances.performanceId eq row[Performances.performanceId] }
-            .map { ActorDAO(name = it[Actors.name]) },
+            .map { it[Actors.name] },
         genre = row[Performances.genre],
         rating = row[Performances.rating],
         place = row[Performances.place],
@@ -21,10 +21,13 @@ class PerformanceDAOImpl : PerformanceDAOFacade {
         endDate = row[Performances.endDate],
         state = row[Performances.state],
         runtime = row[Performances.runtime],
+        strurls = (Details innerJoin Performances).slice(Details.styurl)
+            .select { Performances.performanceId eq row[Performances.performanceId] }
+            .map { it[Details.styurl] }
     )
 
     override suspend fun findSinglePerformance(pid: String): List<PerformanceDAO> = dbQuery {
-        (Actors innerJoin Performances)
+        (Details innerJoin Performances)
             .select { Performances.performanceId eq pid }.groupBy(Performances.performanceId)
             .map(::resultRowToPerformance)
     }
